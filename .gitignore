@@ -13,6 +13,7 @@ hs_err_pid*
 
 #Eclipse settings
 .settings
+.project
 
 #ignore build dirs
 /bin
