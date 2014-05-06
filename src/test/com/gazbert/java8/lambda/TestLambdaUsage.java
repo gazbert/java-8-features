@@ -183,6 +183,35 @@ public class TestLambdaUsage
         
         // only 1 order matches now
         assertEquals(1, orderCount);
+    }    
+    
+    /**
+     * In this example we show syntax for passing 2 args to a lambda function.
+     * <p>
+     * The use case is to check for orders with prices over 1.70 
+     * Without the fee, only 2 orders match; with the fee, 3 orders match.
+     */
+    @Test
+    public void testJava8WayOfCountingMatchedOrdersUsing2ArgsToLambdaFunction() {
+            
+        /*
+         * No fee; 2 orders match
+         */
+        int orderCount = OrderBookAnalyser.getNumberOfMatchedOrders(
+                orderBook,
+                o -> o.getPrice().compareTo(new BigDecimal(1.70)) >= 0);        
+        assertEquals(2, orderCount);        
+        
+        /*
+         * Addition of the fee means we have 3 orders that match.
+         * Note 2 args passed to lambda function.
+         */
+        orderCount = OrderBookAnalyser.getNumberOfMatchedOrders(
+                orderBook,
+                (Order o, BigDecimal fee) -> o.getPrice().add(o.getFee()).setScale(2, RoundingMode.HALF_UP).compareTo(
+                        new BigDecimal(1.70)) >= 0);
+
+        assertEquals(3, orderCount);
     }
     
     /**
@@ -205,35 +234,5 @@ public class TestLambdaUsage
                 o -> o.getPrice().compareTo(new BigDecimal(1.70)) >= 0);
         
         assertEquals(2, orderCount);
-    }
-    
-    /**
-     * In this example we show syntax for passing 2 args to a lambda function.
-     * <p>
-     * The use case is to check for orders with prices over 1.70 
-     * Without the fee, only 2 orders match; with the fee, 3 orders match.
-     */
-    @Test
-    public void testJava8WayOfCountingMatchedOrdersUsing2ArgsToLambdaFunction() {
-            
-        /*
-         * No fee; 2 orders match
-         */
-        int orderCount = OrderBookAnalyser.getNumberOfMatchedOrders(
-                orderBook,
-                o -> o.getPrice().compareTo(new BigDecimal(1.70)) >= 0);        
-        assertEquals(2, orderCount);
-        
-        
-        /*
-         * Addition of the fee means we have 3 orders that match.
-         * Note 2 args passed to lambda function.
-         */
-        orderCount = OrderBookAnalyser.getNumberOfMatchedOrders(
-                orderBook,
-                (Order o, BigDecimal fee) -> o.getPrice().add(o.getFee()).setScale(2, RoundingMode.HALF_UP).compareTo(
-                        new BigDecimal(1.70)) >= 0);
-
-        assertEquals(3, orderCount);
     }
 }

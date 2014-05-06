@@ -5,7 +5,7 @@ Simple code examples for showing what's new in
 
 For full details, check out the main [Java Tutorial](http://docs.oracle.com/javase/tutorial/).
 
-I'll be adding new features to the project on an ad-hoc basis; I have beer to drink and a day job buried in WebRTC ;-)
+I'll be adding new features to the project on an ad-hoc basis; I have beer to drink and a day job buried in WebRTC.
 
 ### Current Features
 
@@ -18,9 +18,9 @@ The tests are written using [JUnit 4](http://junit.org/).
 
 ##### Features Coming Soon...
 
-1. New Date-Time API
-1. Default methods
 1. Aggregate operations
+1. Default methods
+1. Date-Time API
 
 ##### A note on Eclipse IDE support
 

@@ -34,5 +34,5 @@ public interface OrderMatcher
      * @param order the order to query.
      * @return true if order matched query, false otherwise.
      */
-    public boolean executeQuery(Order order);
+    public boolean executeQuery(Order order);   
 }
