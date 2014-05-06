@@ -21,24 +21,18 @@ COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER
 IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
 CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.*/
 
-import static org.junit.Assert.*;
-
-import org.junit.Test;
-
 /**
- * 
+ * Interface for providing query implemenations for matching orders.
  * 
  * @author gazbert
  *
  */
-public class TestSomething 
+public interface OrderMatcher
 {
     /**
-     * 
+     * Executes a query to see if an order matches.
+     * @param order the order to query.
+     * @return true if order matched query, false otherwise.
      */
-    @Test
-    public void testStatePattern() {
-
-
-    }
+    public boolean executeQuery(Order order);
 }

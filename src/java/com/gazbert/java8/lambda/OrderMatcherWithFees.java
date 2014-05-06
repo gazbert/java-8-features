@@ -21,12 +21,23 @@ COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER
 IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
 CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.*/
 
+import java.math.BigDecimal;
+
 /**
+ * Interface for providing query implemenations for matching orders factoring in fees.
  * 
  * @author gazbert
  *
  */
-public class PlaceHolder
+public interface OrderMatcherWithFees
 {
-
+    /**
+     * Executes a query to see if an order matches. Fees are factored in.
+     * 
+     * @param order the order to query.
+     * @param fee the exchange fee.
+     * 
+     * @return true if order matched query, false otherwise.
+     */
+    public boolean executeQuery(Order order, BigDecimal fee);
 }
