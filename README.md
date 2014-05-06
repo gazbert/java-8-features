@@ -1,11 +1,9 @@
 ##java-8-features
 
-_(Work in Progress)_
-
-Some simple code examples for showing what's new in 
+Simple code examples for showing what's new in 
 [Java 8](http://www.oracle.com/technetwork/java/javase/overview/java8-2100321.html).
 
-For full details, check out the main [Java Tutoial](http://docs.oracle.com/javase/tutorial/).
+For full details, check out the main [Java Tutorial](http://docs.oracle.com/javase/tutorial/).
 
 I'll be adding new features to the project on an ad-hoc basis; I have beer to drink and a day job buried in WebRTC ;-)
 
