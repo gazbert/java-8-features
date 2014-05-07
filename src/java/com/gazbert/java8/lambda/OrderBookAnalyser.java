@@ -21,7 +21,10 @@ COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER
 IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
 CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.*/
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.function.Consumer;
+import java.util.function.Function;
 import java.util.function.Predicate;
 
 /**
@@ -59,29 +62,6 @@ public final class OrderBookAnalyser
     }
     
     /**
-     * Returns the number of matched orders for a given query using a Java 8 JDK Standard Functional Interface.
-     * <p>
-     * We use a {@link Predicate} -a boolean-valued function of one argument.
-     * 
-     * @param orderBook the order book.
-     * @param orderMatcher used to match orders - we use standard JDK Predicate functional interface.
-     * @return the number of matched orders.
-     */
-    public static int getNumberOfMatchedOrdersUsingJdkStandardFunctionalInterface(
-            final List<Order> orderBook, final Predicate<Order> orderMatcher)
-    {
-        int orderCount = 0;
-        for (final Order order : orderBook)
-        {
-            if (orderMatcher.test(order)) // test is the functional interface of Predicate
-            {
-                orderCount++;
-            }
-        }        
-        return orderCount;
-    }
-    
-    /**
      * Returns the number of matched orders for a given query (fees factored in).
      * Only here to demo 2 args being passed to lambda function.
      * 
@@ -100,5 +80,81 @@ public final class OrderBookAnalyser
             }
         }        
         return orderCount;
+    }
+    
+    /**
+     * Returns the number of matched orders for a given query using a Java 8 JDK Standard Functional Interface.
+     * <p>
+     * We use a {@link Predicate} -a boolean-valued function of one argument.
+     * 
+     * @param orderBook the order book.
+     * @param orderMatcher used to match orders - we use standard JDK Predicate functional interface.
+     * @return the number of matched orders.
+     */
+    public static int getNumberOfMatchedOrdersUsingJdkPredicateFunctionalInterface(
+            final List<Order> orderBook, final Predicate<Order> orderMatcher)
+    {
+        int orderCount = 0;
+        for (final Order order : orderBook)
+        {
+            if (orderMatcher.test(order)) // test is the functional interface of Predicate
+            {
+                orderCount++;
+            }
+        }        
+        return orderCount;
+    }
+    
+    /**
+     * Looks for a matching order and returns the audit details.
+     * 
+     * @param orderBook the order book.
+     * @param orderMatcher used to match orders - we use standard JDK Predicate functional interface.
+     * @param function the get audit details function - we use standard JDK Function functional interface.
+     * @return a list of audit details of all matchind orders, an empty list otherwise.
+     */
+    public static List<String> getAuditDetailsForMatchingOrders(
+            final List<Order> orderBook, final Predicate<Order> orderMatcher, final Function<Order, String> function)
+    {
+        final List<String> autditDetails = new ArrayList<String>();
+        
+        for (final Order order : orderBook)
+        {
+            if (orderMatcher.test(order)) // test is the functional interface of Predicate
+            {
+                // apply is the functional interface of Function.
+                // Invokes our Order::provideAuditDetails() method.
+                autditDetails.add(function.apply(order)); 
+            }
+        }        
+        return autditDetails;
+    }
+    
+    /**
+     * Looks for a matching order and returns the audit details.
+     * <p>
+     * This time we use generics for everything; neat!
+     * 
+     * 
+     * @param orderBook the order book.
+     * @param orderMatcher used to match orders - we use standard JDK Predicate functional interface.
+     * @param function the get audit details function - we use standard JDK Function functional interface.
+     * @return a list of audit details of all matchind orders, an empty list otherwise.
+     */
+    public static <T,R> List<R> getAuditDetailsForMatchingOrdersUsingGenericArgs(
+            final Iterable<T> orderBook, final Predicate<T> orderMatcher, final Function<T, R> function)
+    {
+        final List<R> autditDetails = new ArrayList<R>();
+        
+        for (final T order : orderBook)
+        {
+            if (orderMatcher.test(order)) // test is the functional interface of Predicate
+            {
+                // apply is the functional interface of Function.
+                // Invokes our Order::provideAuditDetails() method.
+                autditDetails.add(function.apply(order)); 
+            }
+        }        
+        return autditDetails;
     }
 }

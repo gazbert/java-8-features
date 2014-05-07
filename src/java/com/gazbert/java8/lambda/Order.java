@@ -130,4 +130,14 @@ public class Order
     {
         return fee;
     }
+        
+    /**
+     * Returns the order details required for auditing.
+     * @return audit details.
+     */
+    public String provideAuditDetails()
+    {
+        // keep it simple for the demo.
+        return "OrderId: " + id + " Market: " + marketId + " Amount: " + amount + " Price: " + price;        
+    }
 }

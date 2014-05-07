@@ -220,19 +220,66 @@ public class TestLambdaUsage
      * Given we only have 1 method with 1 arg in our {@link OrderMatcher} interface, we could use the 
      * inbuilt JDK functional interfaces defined in the <code>java.util.function<code> package.
      * <p>
+     * More detail on standard functions here:
+     * http://download.java.net/lambda/b81/docs/api/java/util/function/package-summary.html
+     * <p>
      * Here's how we can use the {@link Predicate} functional interface for our use case.
      */
     @Test
-    public void testJava8WayOfCountingMatchedOrdersUsingJdkStandardFunctionalInterface() {
+    public void testJava8WayOfCountingMatchedOrdersUsingJdkPredicateFunctionalInterface() {
             
         /*
          * Check for number of orders with prices of 1.70 or more     
          * Everything is exactly the as before in the test code; take a look at the new method we are calling though...  
          */
-        int orderCount = OrderBookAnalyser.getNumberOfMatchedOrdersUsingJdkStandardFunctionalInterface(
+        int orderCount = OrderBookAnalyser.getNumberOfMatchedOrdersUsingJdkPredicateFunctionalInterface(
                 orderBook,
                 o -> o.getPrice().compareTo(new BigDecimal(1.70)) >= 0);
         
         assertEquals(2, orderCount);
     }
+    
+    /**
+     * Shows another example of doing things using the JDK Standard Functional Interfaces.
+     * <p>
+     * More detail on standard functions here:
+     * http://download.java.net/lambda/b81/docs/api/java/util/function/package-summary.html
+     * <p>
+     * Use case: all order amounts over 200 need to be audited.
+     */
+    @Test
+    public void testGettingAuditDetailsUsingJdkFunctionFunctionalInterface() {
+            
+        List<String> auditDetails = OrderBookAnalyser.getAuditDetailsForMatchingOrders(
+                orderBook,
+                o -> o.getPrice().compareTo(new BigDecimal(1.70)) >= 0,
+                o -> o.provideAuditDetails());
+        
+        assertEquals(2, auditDetails.size());
+        assertTrue(auditDetails.get(0).contains("USD")); // eek! But you get the idea ;-)
+        assertTrue(auditDetails.get(1).contains("CNY"));
+    }    
+    
+    /**
+     * Use case as previous example.
+     * 
+     * This time, we're going to make things more Generic when we use the JDK Standard Functional Interfaces.
+     * <p>
+     * More detail on standard functions here:
+     * http://download.java.net/lambda/b81/docs/api/java/util/function/package-summary.html
+     * <p>
+     * Use case: all order amounts over 200 need to be audited.
+     */
+    @Test
+    public void testGettingAuditDetailsUsingGenericArgsAndJdkFunctionalInterfaces() {
+            
+        List<String> auditDetails = OrderBookAnalyser.getAuditDetailsForMatchingOrdersUsingGenericArgs(
+                orderBook,
+                o -> o.getPrice().compareTo(new BigDecimal(1.70)) >= 0,
+                o -> o.provideAuditDetails());
+        
+        assertEquals(2, auditDetails.size());
+        assertTrue(auditDetails.get(0).contains("USD")); // eek! But you get the idea ;-)
+        assertTrue(auditDetails.get(1).contains("CNY"));
+    }    
 }
