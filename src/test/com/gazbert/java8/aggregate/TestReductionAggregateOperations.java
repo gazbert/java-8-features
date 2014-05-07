@@ -261,6 +261,33 @@ public class TestReductionAggregateOperations
         assertEquals(3, totalNumberOfBuyTrades);
     }
     
+    
+    /**
+     * Another example of using groupingBy returns average trade count for Buy and Sell orders.
+     */
+    @Test
+    public void getMapOfSellAndBuyTradeAveragesUsingJava8CollectorsGroupingBy() {
+      
+        order1.setTradeCountToFill(3);
+        order2.setTradeCountToFill(4);
+        order3.setTradeCountToFill(2);
+        
+        final Map<Order.Type, Double> averageTradeCountByOrderType = orderBook
+                .stream()
+                .collect(
+                    Collectors.groupingBy(
+                        Order::getType,                      
+                        Collectors.averagingInt(Order::getTradeCountToFill)));
+        
+        final double averageNumberOfSellTrades = averageTradeCountByOrderType.get(Type.SELL);
+        assertEquals(3, averageNumberOfSellTrades, 0);
+        
+        final double averageNumberOfBuyTrades = averageTradeCountByOrderType.get(Type.BUY);
+        assertEquals(3, averageNumberOfBuyTrades, 0);
+    }
+    
+    
+    
     /**
      * Helper class used in demoing use of the <code>Stream.collect</code> method.
      * @author gazbert
