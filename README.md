@@ -5,7 +5,7 @@ Simple code examples for showing what's new in
 
 They are based on the examples in the main [Java Tutorial](http://docs.oracle.com/javase/tutorial/).
 
-I'll be adding new features to the project on an ad-hoc basis; I have beer to drink and a day job buried in WebRTC!
+I'll be adding new features to the project on an ad-hoc basis; I have beer to drink and a day job buried in WebRTC :-)
 
 ### Current Features
 
