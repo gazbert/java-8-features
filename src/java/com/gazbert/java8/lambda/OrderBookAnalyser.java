@@ -27,6 +27,8 @@ import java.util.function.Consumer;
 import java.util.function.Function;
 import java.util.function.Predicate;
 
+import com.gazbert.java8.common.Order;
+
 /**
  * Utility class for analysing an order book.
  * <p>

@@ -10,6 +10,7 @@ I'll be adding new features to the project on an ad-hoc basis; I have beer to dr
 ### Current Features
 
 1. Lambda
+1. Aggregate operations
 
 Each feature is contained in its own package - the package-info will provide more details and the Test class 
 will demonstrate how to use it.  Check the javadoc folder too.
@@ -18,7 +19,6 @@ The tests are written using [JUnit 4](http://junit.org/).
 
 ##### Features Coming Soon...
 
-1. Aggregate operations
 1. Default methods
 1. Date-Time API
 

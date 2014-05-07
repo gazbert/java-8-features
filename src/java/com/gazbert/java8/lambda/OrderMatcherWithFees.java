@@ -23,6 +23,8 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.*/
 
 import java.math.BigDecimal;
 
+import com.gazbert.java8.common.Order;
+
 /**
  * Interface for providing query implemenations for matching orders factoring in fees.
  * 

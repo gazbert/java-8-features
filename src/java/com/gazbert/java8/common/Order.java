@@ -1,4 +1,4 @@
-package com.gazbert.java8.lambda;
+package com.gazbert.java8.common;
 
 /*The MIT License (MIT)
 
@@ -79,6 +79,9 @@ public class Order
     /** Fee */
     private BigDecimal fee;
     
+    /** Number of trades it took to fill the order */
+    private int tradeCountToFill;
+    
  
     /**
      * Constructor builds an order.
@@ -139,5 +142,15 @@ public class Order
     {
         // keep it simple for the demo.
         return "OrderId: " + id + " Market: " + marketId + " Amount: " + amount + " Price: " + price;        
+    }
+
+    public int getTradeCountToFill()
+    {
+        return tradeCountToFill;
+    }
+
+    public void setTradeCountToFill(int tradeCountToFill)
+    {
+        this.tradeCountToFill = tradeCountToFill;
     }
 }

@@ -1,5 +1,7 @@
 package com.gazbert.java8.lambda;
 
+import com.gazbert.java8.common.Order;
+
 /*The MIT License (MIT)
 
 Copyright (c) 2014 Gazbert

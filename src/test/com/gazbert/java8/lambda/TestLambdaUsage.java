@@ -32,13 +32,14 @@ import java.util.function.Predicate;
 import org.junit.Before;
 import org.junit.Test;
 
-import com.gazbert.java8.lambda.Order.Market;
-import com.gazbert.java8.lambda.Order.Type;
+import com.gazbert.java8.common.Order;
+import com.gazbert.java8.common.Order.Market;
+import com.gazbert.java8.common.Order.Type;
 
 /**
  * Test class for demsrating use of lambdas in Java 8.
  * <p>
- * Use case is checking for matching orders that have been placed on a trading exchange, e.g. Eurex.
+ * Use case is for querying orders in a trading exchange order book.
  * <p>
  * 
  * @author gazbert
@@ -74,7 +75,7 @@ public class TestLambdaUsage
      * <p>
      */
     @Test
-    public void testJava7WayOfCountingMatchedOrders() {
+    public void countMatchingOrdersUsingJava7WayOfUsingAnonymousClass() {
 
         /*
          * Check for number of orders with prices of 1.70 or more     
@@ -113,7 +114,7 @@ public class TestLambdaUsage
      * It's quite cumbersome looking and a pain to type. This is where lambdas come in.. :-)
      */
     @Test
-    public void testJava8WayOfCountingMatchedOrders() {
+    public void countMatchingOrdersUsingJava8LambdaExpression() {
 
         /*
          * Check for number of orders with prices of 1.70 or more         
@@ -192,7 +193,7 @@ public class TestLambdaUsage
      * Without the fee, only 2 orders match; with the fee, 3 orders match.
      */
     @Test
-    public void testJava8WayOfCountingMatchedOrdersUsing2ArgsToLambdaFunction() {
+    public void showJava8WayOfCountingMatchedOrdersUsing2ArgsToLambdaFunction() {
             
         /*
          * No fee; 2 orders match
@@ -226,7 +227,7 @@ public class TestLambdaUsage
      * Here's how we can use the {@link Predicate} functional interface for our use case.
      */
     @Test
-    public void testJava8WayOfCountingMatchedOrdersUsingJdkPredicateFunctionalInterface() {
+    public void showJava8WayOfCountingMatchedOrdersUsingJdkPredicateFunctionalInterface() {
             
         /*
          * Check for number of orders with prices of 1.70 or more     
@@ -248,7 +249,7 @@ public class TestLambdaUsage
      * Use case: all order amounts over 200 need to be audited.
      */
     @Test
-    public void testGettingAuditDetailsUsingJdkFunctionFunctionalInterface() {
+    public void showGettingAuditDetailsUsingJava8JdkFunctionFunctionalInterface() {
             
         List<String> auditDetails = OrderBookAnalyser.getAuditDetailsForMatchingOrders(
                 orderBook,
@@ -271,7 +272,7 @@ public class TestLambdaUsage
      * Use case: all order amounts over 200 need to be audited.
      */
     @Test
-    public void testGettingAuditDetailsUsingGenericArgsAndJdkFunctionalInterfaces() {
+    public void showGettingAuditDetailsUsingGenericArgsAndJava8JdkFunctionalInterfaces() {
             
         List<String> auditDetails = OrderBookAnalyser.getAuditDetailsForMatchingOrdersUsingGenericArgs(
                 orderBook,
