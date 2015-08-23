@@ -14,7 +14,7 @@ I'll be adding new features to the project on an ad-hoc basis.
 1. Default methods
 
 Each feature is contained in its own package - the package-info will provide more details and the Test class 
-will demonstrate how to use it.  Check the javadoc folder too.
+will demonstrate how to use it.
 
 ##### Features coming soon...
 
