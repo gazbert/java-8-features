@@ -19,3 +19,8 @@ hs_err_pid*
 /dist
 /libs
 
+# IntelliJ
+*.iml
+/.idea
+/out
+
