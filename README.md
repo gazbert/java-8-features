@@ -1,5 +1,7 @@
 ##java-8-features
 
+[![Build Status](https://travis-ci.org/gazbert/java-8-features.svg?branch=master)](https://travis-ci.org/gazbert/java-8-features)
+
 Simple code examples for showing what's new in 
 [Java 8](http://www.oracle.com/technetwork/java/javase/overview/java8-2100321.html).
 
