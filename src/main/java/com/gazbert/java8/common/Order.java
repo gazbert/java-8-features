@@ -1,156 +1,172 @@
+/*
+ * The MIT License (MIT)
+ *
+ * Copyright (c) 2015 Gareth Jon Lynch
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a copy of
+ * this software and associated documentation files (the "Software"), to deal in
+ * the Software without restriction, including without limitation the rights to
+ * use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of
+ * the Software, and to permit persons to whom the Software is furnished to do so,
+ * subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included in all
+ * copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS
+ * FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR
+ * COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER
+ * IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
+ * CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+ */
+
 package com.gazbert.java8.common;
-
-/*The MIT License (MIT)
-
-Copyright (c) 2014 Gazbert
-
-Permission is hereby granted, free of charge, to any person obtaining a copy of
-this software and associated documentation files (the "Software"), to deal in
-the Software without restriction, including without limitation the rights to
-use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of
-the Software, and to permit persons to whom the Software is furnished to do so,
-subject to the following conditions:
-
-The above copyright notice and this permission notice shall be included in all
-copies or substantial portions of the Software.
-
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS
-FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR
-COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER
-IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
-CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.*/
 
 import java.math.BigDecimal;
 import java.util.UUID;
 
 /**
  * Models an order for placing on an exchange.
- * 
- * @author gazbert
  *
+ * @author gazbert
  */
-public class Order
-{       
+public class Order {
+
     /**
      * Defines the martket ids.
+     *
      * @author gazbert
      */
-    public enum Market
-    {
-        /** Dollar */
+    public enum Market {
+        /**
+         * Dollar
+         */
         USD,
-        
-        /** Yuan */
+
+        /**
+         * Yuan
+         */
         CNY,
-        
-        /** Euro */
-        EUR;
+
+        /**
+         * Euro
+         */
+        EUR
     }
-    
+
     /**
      * Defines the types of order.
+     *
      * @author gazbert
      */
-    public enum Type
-    {
-        /** BUY order */
+    public enum Type {
+        /**
+         * BUY order
+         */
         BUY,
-        
-        /** SELL order */
-        SELL;
+
+        /**
+         * SELL order
+         */
+        SELL
     }
-    
-    /** Id */
+
+    /**
+     * Id
+     */
     private UUID id;
-    
-    /** Market id */
+
+    /**
+     * Market id
+     */
     private Market marketId;
-    
-    /** Type of order BUY|SELL */
+
+    /**
+     * Type of order BUY|SELL
+     */
     private Type type;
-    
-    /** Amount of units in the order */
+
+    /**
+     * Amount of units in the order
+     */
     private BigDecimal amount;
-    
-    /** Price per unit of order */
+
+    /**
+     * Price per unit of order
+     */
     private BigDecimal price;
-    
-    /** Fee */
+
+    /**
+     * Fee
+     */
     private BigDecimal fee;
-    
-    /** Number of trades it took to fill the order */
+
+    /**
+     * Number of trades it took to fill the order
+     */
     private int tradeCountToFill;
-    
- 
+
+
     /**
      * Constructor builds an order.
-     * 
-     * @param marketId
-     * @param type
-     * @param amount
-     * @param price
-     * @param fee
+     *
+     * @param marketId the market id.
+     * @param type the order type
+     * @param amount the order amount.
+     * @param price the order price.
+     * @param fee the order fee.
      */
-    public Order(final Market marketId, final Type type, final BigDecimal amount, final BigDecimal price, 
-            final BigDecimal fee)
-    {
+    public Order(Market marketId, Type type, BigDecimal amount, BigDecimal price, BigDecimal fee) {
+
         this.marketId = marketId;
         this.type = type;
         this.amount = amount;
         this.price = price;
         this.fee = fee;
-        
+
         id = UUID.randomUUID();
     }
 
-    public UUID getId()
-    {
+    public UUID getId() {
         return id;
     }
 
-    public Market getMarketId()
-    {
+    public Market getMarketId() {
         return marketId;
     }
 
-    public Type getType()
-    {
+    public Type getType() {
         return type;
     }
 
-    public BigDecimal getAmount()
-    {
+    public BigDecimal getAmount() {
         return amount;
     }
 
-    public BigDecimal getPrice()
-    {
+    public BigDecimal getPrice() {
         return price;
     }
 
-    public BigDecimal getFee()
-    {
+    public BigDecimal getFee() {
         return fee;
     }
-        
+
     /**
      * Returns the order details required for auditing.
+     *
      * @return audit details.
      */
-    public String provideAuditDetails()
-    {
+    public String provideAuditDetails() {
         // keep it simple for the demo.
-        return "OrderId: " + id + " Market: " + marketId + " Amount: " + amount + " Price: " + price;        
+        return "OrderId: " + id + " Market: " + marketId + " Amount: " + amount + " Price: " + price;
     }
 
-    public int getTradeCountToFill()
-    {
+    public int getTradeCountToFill() {
         return tradeCountToFill;
     }
 
-    public void setTradeCountToFill(int tradeCountToFill)
-    {
+    public void setTradeCountToFill(int tradeCountToFill) {
         this.tradeCountToFill = tradeCountToFill;
     }
 }

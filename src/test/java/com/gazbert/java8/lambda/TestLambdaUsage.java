@@ -1,25 +1,27 @@
+/*
+ * The MIT License (MIT)
+ *
+ * Copyright (c) 2015 Gareth Jon Lynch
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a copy of
+ * this software and associated documentation files (the "Software"), to deal in
+ * the Software without restriction, including without limitation the rights to
+ * use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of
+ * the Software, and to permit persons to whom the Software is furnished to do so,
+ * subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included in all
+ * copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS
+ * FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR
+ * COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER
+ * IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
+ * CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+ */
+
 package com.gazbert.java8.lambda;
-
-/*The MIT License (MIT)
-
-Copyright (c) 2014 Gazbert
-
-Permission is hereby granted, free of charge, to any person obtaining a copy of
-this software and associated documentation files (the "Software"), to deal in
-the Software without restriction, including without limitation the rights to
-use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of
-the Software, and to permit persons to whom the Software is furnished to do so,
-subject to the following conditions:
-
-The above copyright notice and this permission notice shall be included in all
-copies or substantial portions of the Software.
-
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS
-FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR
-COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER
-IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
-CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.*/
 
 import static org.junit.Assert.*;
 
@@ -37,37 +39,35 @@ import com.gazbert.java8.common.Order.Market;
 import com.gazbert.java8.common.Order.Type;
 
 /**
- * Test class for demsrating use of lambdas in Java 8.
+ * Test class for demonstrating use of lambdas in Java 8.
  * <p>
  * Use case is for querying orders in a trading exchange order book.
  * <p>
- * 
- * @author gazbert
  *
+ * @author gazbert
  */
-public class TestLambdaUsage 
-{  
+public class TestLambdaUsage {
+
     private List<Order> orderBook;
-    
+
     /**
      * Builds the order book up for each test.
      */
     @Before
-    public void setupForEachTest()
-    {
+    public void setupForEachTest() {
         final Order order1 = new Order(
-                Market.EUR, Type.BUY, new BigDecimal(100.00), new BigDecimal(1.69), new BigDecimal(0.01));
+                Market.EUR, Type.BUY, new BigDecimal("100.00"), new BigDecimal("1.69"), new BigDecimal("0.01"));
         final Order order2 = new Order(
-                Market.USD, Type.BUY, new BigDecimal(200.00), new BigDecimal(1.70), new BigDecimal(0.01));
+                Market.USD, Type.BUY, new BigDecimal("200.00"), new BigDecimal("1.70"), new BigDecimal("0.01"));
         final Order order3 = new Order(
-                Market.CNY, Type.SELL, new BigDecimal(250.00), new BigDecimal(10.58), new BigDecimal(0.01));
-  
-        orderBook = new ArrayList<Order>();
+                Market.CNY, Type.SELL, new BigDecimal("250.00"), new BigDecimal("10.58"), new BigDecimal("0.01"));
+
+        orderBook = new ArrayList<>();
         orderBook.add(order1);
         orderBook.add(order2);
-        orderBook.add(order3);        
+        orderBook.add(order3);
     }
-    
+
     /**
      * Shows the Java 7 way of doing things.
      * <p>
@@ -81,29 +81,24 @@ public class TestLambdaUsage
          * Check for number of orders with prices of 1.70 or more     
          */
         final int orderCount = OrderBookAnalyser.getNumberOfMatchedOrders(
-                
+
                 orderBook,
-                
+
                 // typically use anonymous inner class with 1 method.
-                new OrderMatcher()
-                {            
+                new OrderMatcher() {
                     @Override
-                    public boolean executeQuery(Order order)
-                    {
-                        if (order.getPrice().compareTo(new BigDecimal(1.70)) >= 0)
-                        {
+                    public boolean executeQuery(Order order) {
+                        if (order.getPrice().compareTo(new BigDecimal(1.70)) >= 0) {
                             return true;
-                        }
-                        else
-                        {
+                        } else {
                             return false;
                         }
                     }
                 });
-        
+
         assertEquals(2, orderCount);
     }
-    
+
     /**
      * Shows the Java 8 way of doing things.
      * <p>
@@ -120,7 +115,7 @@ public class TestLambdaUsage
          * Check for number of orders with prices of 1.70 or more         
          */
         int orderCount = OrderBookAnalyser.getNumberOfMatchedOrders(
-                
+
                 // pass the order book like we did before
                 orderBook,
                 
@@ -129,26 +124,26 @@ public class TestLambdaUsage
                  * 
                  * The (Order order) part is the argument to the function.
                  * The -> arrow token part 'points' to the function.
-                 * Everthing the other side of the arrow is the expression.
+                 * Everything the other side of the arrow is the expression.
                  */
-                (Order o) -> o.getPrice().compareTo(new BigDecimal(1.70)) >= 0);
-        
+                (Order o) -> o.getPrice().compareTo(new BigDecimal("1.70")) >= 0);
+
         assertEquals(2, orderCount);
         
         /*
          * We can omit the data type of the parameters in a lambda expression to write less code...
          */
-        orderCount = OrderBookAnalyser.getNumberOfMatchedOrders(               
-                orderBook, (o) -> o.getPrice().compareTo(new BigDecimal(1.70)) >= 0);
-        
+        orderCount = OrderBookAnalyser.getNumberOfMatchedOrders(
+                orderBook, (o) -> o.getPrice().compareTo(new BigDecimal("1.70")) >= 0);
+
         assertEquals(2, orderCount);
                 
         /*
          * In addition, we can omit the parentheses if there is only one parameter.
          */
-        orderCount = OrderBookAnalyser.getNumberOfMatchedOrders(               
-                orderBook, o -> o.getPrice().compareTo(new BigDecimal(1.70)) >= 0);
-        
+        orderCount = OrderBookAnalyser.getNumberOfMatchedOrders(
+                orderBook, o -> o.getPrice().compareTo(new BigDecimal("1.70")) >= 0);
+
         assertEquals(2, orderCount);        
         
         /*
@@ -157,20 +152,18 @@ public class TestLambdaUsage
          * 
          * In this case we want to make sure the order was a SELL order.
          */
-        orderCount = OrderBookAnalyser.getNumberOfMatchedOrders(               
-                orderBook, 
+        orderCount = OrderBookAnalyser.getNumberOfMatchedOrders(
+                orderBook,
                 o -> {
-                           if (o.getPrice().compareTo(new BigDecimal(1.70)) >= 0)
-                           {
-                               if (o.getType() == Type.SELL)
-                               {
-                                   return true;
-                               }
-                           }
-                           return false;                            
-                       }
-                );
-        
+                    if (o.getPrice().compareTo(new BigDecimal("1.70")) >= 0) {
+                        if (o.getType() == Type.SELL) {
+                            return true;
+                        }
+                    }
+                    return false;
+                }
+        );
+
         // only 1 order matches now
         assertEquals(1, orderCount);
         
@@ -179,17 +172,17 @@ public class TestLambdaUsage
          * 
          * Below is how I would code it normally.
          */
-        orderCount = OrderBookAnalyser.getNumberOfMatchedOrders(               
-                orderBook, o -> o.getPrice().compareTo(new BigDecimal(1.70)) >= 0 && o.getType() == Type.SELL);
-        
+        orderCount = OrderBookAnalyser.getNumberOfMatchedOrders(
+                orderBook, o -> o.getPrice().compareTo(new BigDecimal("1.70")) >= 0 && o.getType() == Type.SELL);
+
         // only 1 order matches now
         assertEquals(1, orderCount);
-    }    
-    
+    }
+
     /**
      * In this example we show syntax for passing 2 args to a lambda function.
      * <p>
-     * The use case is to check for orders with prices over 1.70 
+     * The use case is to check for orders with prices over 1.70
      * Without the fee, only 2 orders match; with the fee, 3 orders match.
      */
     @Test
@@ -200,7 +193,7 @@ public class TestLambdaUsage
          */
         int orderCount = OrderBookAnalyser.getNumberOfMatchedOrders(
                 orderBook,
-                o -> o.getPrice().compareTo(new BigDecimal(1.70)) >= 0);        
+                o -> o.getPrice().compareTo(new BigDecimal("1.70")) >= 0);
         assertEquals(2, orderCount);        
         
         /*
@@ -210,15 +203,15 @@ public class TestLambdaUsage
         orderCount = OrderBookAnalyser.getNumberOfMatchedOrders(
                 orderBook,
                 (Order o, BigDecimal fee) -> o.getPrice().add(o.getFee()).setScale(2, RoundingMode.HALF_UP).compareTo(
-                        new BigDecimal(1.70)) >= 0);
+                        new BigDecimal("1.70")) >= 0);
 
         assertEquals(3, orderCount);
     }
-    
+
     /**
      * Shows the Java 8 way of doing things using the JDK Standard Functional Interfaces.
      * <p>
-     * Given we only have 1 method with 1 arg in our {@link OrderMatcher} interface, we could use the 
+     * Given we only have 1 method with 1 arg in our {@link OrderMatcher} interface, we could use the
      * inbuilt JDK functional interfaces defined in the <code>java.util.function<code> package.
      * <p>
      * More detail on standard functions here:
@@ -235,11 +228,11 @@ public class TestLambdaUsage
          */
         int orderCount = OrderBookAnalyser.getNumberOfMatchedOrdersUsingJdkPredicateFunctionalInterface(
                 orderBook,
-                o -> o.getPrice().compareTo(new BigDecimal(1.70)) >= 0);
-        
+                o -> o.getPrice().compareTo(new BigDecimal("1.70")) >= 0);
+
         assertEquals(2, orderCount);
     }
-    
+
     /**
      * Shows another example of doing things using the JDK Standard Functional Interfaces.
      * <p>
@@ -250,20 +243,20 @@ public class TestLambdaUsage
      */
     @Test
     public void showGettingAuditDetailsUsingJava8JdkFunctionFunctionalInterface() {
-            
+
         List<String> auditDetails = OrderBookAnalyser.getAuditDetailsForMatchingOrders(
                 orderBook,
-                o -> o.getPrice().compareTo(new BigDecimal(1.70)) >= 0,
+                o -> o.getPrice().compareTo(new BigDecimal("1.70")) >= 0,
                 o -> o.provideAuditDetails());
-        
+
         assertEquals(2, auditDetails.size());
         assertTrue(auditDetails.get(0).contains("USD")); // eek! But you get the idea ;-)
         assertTrue(auditDetails.get(1).contains("CNY"));
-    }    
-    
+    }
+
     /**
      * Use case as previous example.
-     * 
+     * <p>
      * This time, we're going to make things more Generic when we use the JDK Standard Functional Interfaces.
      * <p>
      * More detail on standard functions here:
@@ -273,14 +266,14 @@ public class TestLambdaUsage
      */
     @Test
     public void showGettingAuditDetailsUsingGenericArgsAndJava8JdkFunctionalInterfaces() {
-            
+
         List<String> auditDetails = OrderBookAnalyser.getAuditDetailsForMatchingOrdersUsingGenericArgs(
                 orderBook,
-                o -> o.getPrice().compareTo(new BigDecimal(1.70)) >= 0,
+                o -> o.getPrice().compareTo(new BigDecimal("1.70")) >= 0,
                 o -> o.provideAuditDetails());
-        
+
         assertEquals(2, auditDetails.size());
         assertTrue(auditDetails.get(0).contains("USD")); // eek! But you get the idea ;-)
         assertTrue(auditDetails.get(1).contains("CNY"));
-    }    
+    }
 }
