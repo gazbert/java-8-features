@@ -1,4 +1,4 @@
-## java-8-features
+## Java 8 Features
 
 [![Build Status](https://travis-ci.org/gazbert/java-8-features.svg?branch=master)](https://travis-ci.org/gazbert/java-8-features)
 
